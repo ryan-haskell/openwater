@@ -27,25 +27,25 @@ type Msg
     = AppReceivedNow Posix
 
 
-init : { model : Model, cmd : Cmd Msg }
-init =
+init : context -> { model : Model, cmd : Cmd Msg }
+init _ =
     { model = Model Nothing
     , cmd = Task.perform AppReceivedNow Time.now
     }
 
 
-update : Msg -> Model -> { model : Model, cmd : Cmd Msg }
-update msg model =
+update : context -> Msg -> Model -> { model : Model, cmd : Cmd Msg }
+update _ msg model =
     case msg of
         AppReceivedNow now ->
             ReturnValue { model | now = Just now } Cmd.none
 
 
-view : Model -> Html Msg
-view model =
+view : context -> Model -> Html Msg
+view _ model =
     div [] [ text "Weekday view?" ]
 
 
-subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions : context -> Model -> Sub Msg
+subscriptions _ model =
     Sub.none
